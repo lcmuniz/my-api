@@ -11,7 +11,7 @@ public class MyController {
 
     @RequestMapping("/hello")
     public String hello() {
-        return "Hello, World! Now is " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY 'at' HH:mm"))+ ".";
+        return "Hello, World! Now is " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY 'at' HH:mm")) + ".";
     }
 
 }
