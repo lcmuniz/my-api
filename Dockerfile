@@ -1,14 +1,17 @@
-FROM eclipse-temurin:21-jre
+# Imagem Red Hat UBI com OpenJDK (boa para OpenShift)
+FROM registry.access.redhat.com/ubi9/openjdk-17-runtime
 
-WORKDIR /app
+WORKDIR /opt/app
 
-# usuário não-root (boa prática)
-RUN useradd -m appuser
-USER appuser
-
-# copia o jar já gerado pelo Maven
+# Copia o JAR já compilado
 COPY target/*.jar app.jar
+
+# OpenShift roda com UID aleatório; garanta permissão para o grupo 0 (root group)
+# Assim qualquer UID aleatório pertencente ao grupo 0 consegue ler/executar e escrever (se precisar).
+RUN chgrp -R 0 /opt/app && \
+    chmod -R g=u /opt/app
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+# Roda como UID arbitrário (não fixa user)
+ENTRYPOINT ["java","-jar","/opt/app/app.jar"]
