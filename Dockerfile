@@ -8,6 +8,9 @@ COPY target/*.jar app.jar
 
 # OpenShift roda com UID aleatório; garanta permissão para o grupo 0 (root group)
 # Assim qualquer UID aleatório pertencente ao grupo 0 consegue ler/executar e escrever (se precisar).
+
+USER root
+
 RUN chgrp -R 0 /opt/app && \
     chmod -R g=u /opt/app
 
