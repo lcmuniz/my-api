@@ -11,7 +11,7 @@ import java.net.InetAddress;
 public class MyController {
 
     @RequestMapping("/hello")
-    public String hello() {
+    public String hello() throws Exception {
         return "Hello, World! Now is " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/YYYY 'at' HH:mm")) + " from " + InetAddress.getLocalHost().getHostName() + ".";
     }
 
